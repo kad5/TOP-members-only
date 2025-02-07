@@ -1,0 +1,90 @@
+Members Only 
+
+------------------------------------------------------------------------------
+npm
+express, express async handler, express validator, ejs, dotenv, passport, passport local, express session, bcryptjs.
+
+
+------------------------------------------------------------------------------
+
+db : 3 tables  
+  - users table (id, first name, last name, username/email, password, auth level [1 , 2 ,3], IsAdmin)
+  - messages (id, user_id, message, timestamp)
+  - user notes (id, user_id, note, timestamp)
+
+------------------------------------------------------------------------------
+
+queries
+
+  insert user 
+  insert message
+  insert note
+  
+  find user by id
+  find messages by user id 
+  find notes by user id
+  
+  update subscription level / name / password
+  update message
+  update note
+  update make admin
+ 
+  delete user
+  delete message
+  delete note
+
+------------------------------------------------------------------------------
+
+backend routes
+
+public
+  get / > overview
+  get / documentation > documentation
+  get / messages > all messages
+  get / sign up
+  post / sign up
+  get / login
+  post / login 
+  get / logout
+
+private
+  get / dashboard / :id > dashboard
+    > account details, username , name , lastname, subscription level
+    > form to change details
+    > script to view personal notes
+    > script to view all of the user's posted messages
+
+  post / dashboard / :id / vars (subscription level, name, password, admin)
+  post / dashboard / :id / add_note
+
+any private for non users redirect to login
+login or signup for logged in users redirects to dashboard
+
+------------------------------------------------------------------------------
+
+views
+
+  sign up 
+  log in
+  documentation
+  messages
+  dashboard
+  404
+
+------------------------------------------------------------------------------
+
+frontend
+
+  implement loaders
+  header with droplist
+  dynamic dashboard page
+  documentation with script codes css
+  
+------------------------------------------------------------------------------
+
+assets
+
+images: apple emoji.
+svgs: user, add, dropdown, dashboard, note, message, edit, delete, login, logout, register
+  
+------------------------------------------------------------------------------
