@@ -4,7 +4,6 @@ const passport = require("passport");
 const auth = require("../middleware/auth");
 const bcrypt = require("bcryptjs");
 
-// any private for non users redirect to login
 // login or signup for logged in users redirects to dashboard
 
 const signUp = asyncHandler(async (req, res) => {
@@ -20,19 +19,36 @@ const signUp = asyncHandler(async (req, res) => {
   res.redirect("/log-in");
 });
 
-const logIn = [
+const logInGet = [
+  (req, res, next) => {
+    if (req.isAuthenticated()) {
+      return res.redirect(req.session.returnTo || "/dashboard");
+    }
+    next();
+  },
+  (req, res) => {
+    const message = req.session.messages ? req.session.messages[0] : null; // get the fail message - passport saves the messages to req.session.messages
+    req.session.messages = [];
+    res.render("log-in", { message });
+  },
+];
+
+const logInPost = [
   passport.authenticate("local", {
     failureRedirect: "/log-in",
     failureMessage: true,
   }),
   (req, res) => {
-    const returnTo = req.session.returnTo || "/dashboard"; // redirect to saved URL or default
-    delete req.session.returnTo; // and delete it after use
+    const returnTo = req.session.returnTo || "/dashboard"; // redirect to saved URL or default being dashboard
+    delete req.session.returnTo;
     res.redirect(returnTo);
   },
 ];
 
 const logOut = (req, res, next) => {
+  if (!req.isAuthenticated()) {
+    return res.redirect("/");
+  }
   req.logout((err) => {
     if (err) {
       return next(err);
@@ -59,7 +75,8 @@ const addNote = asyncHandler(async (req, res) => res.send("note recieved"));
 
 module.exports = {
   signUp,
-  logIn,
+  logInPost,
+  logInGet,
   logOut,
   renderAllmessages,
   addMssage,

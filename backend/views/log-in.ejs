@@ -9,7 +9,7 @@
     <h1>Sign In</h1>
 
     <% if (locals.message) { %>
-    <div style="color: red"><%= localsmessage %></div>
+    <div style="color: red"><%= locals.message %></div>
     <% } %>
 
     <form action="/log-in" method="POST">

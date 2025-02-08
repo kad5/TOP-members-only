@@ -12,15 +12,7 @@ router
   .get((req, res) => res.render("sign-up"))
   .post(validation.signUp, controller.signUp);
 
-router
-  .route("/log-in")
-  .get((req, res) => {
-    res.render("log-in", {
-      message: req.session.messages?.[0],
-    });
-    delete req.session.messages;
-  })
-  .post(controller.logIn);
+router.route("/log-in").get(controller.logInGet).post(controller.logInPost);
 
 router.get("/log-out", controller.logOut);
 

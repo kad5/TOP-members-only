@@ -20,7 +20,8 @@ passport.use(
 
       return done(null, user);
     } catch (err) {
-      return done(err);
+      console.log("its me");
+      //return done(err);
     }
   })
 );
