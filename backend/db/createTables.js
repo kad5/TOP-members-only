@@ -35,7 +35,7 @@ CREATE INDEX idx_notes_user_id ON notes (user_id);
 async function main() {
   console.log("seeding...");
   const client = new Client({
-    connectionString: process.env.dbString,
+    connectionString: process.env.DB_CONNECTION_STRING,
   });
   await client.connect();
   await client.query(SQL);
