@@ -4,7 +4,7 @@ What is this project?
 -the webiste allows users to register for an account.
 -the website also has documentation on the code of this project to keep my notes and learning points
 -anyone can view the documentation and a public messaging baord (view only)
--level 1 subscribed users can see who posted but cant post
--level 2 subscribers can do as 1 and post messages
--level 3 can do as 2 and also view a secret page
+-level 1 subscribed users can see who posted but cant post (has dahsboard and has private notes)
+-level 2 subscribers can do as 1 and post messages (can post and see names)
+-level 3 can do as 2 and also view a secret page (private access)
 -admin level can do as 3 and also delete

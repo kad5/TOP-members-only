@@ -6,37 +6,9 @@
     <title>Dashboard</title>
   </head>
   <body>
-    <h1>Welcome to Your Dashboard, <%= user.firstName %>!</h1>
+    <h1>Welcome to Your Dashboard!</h1>
 
     <p>Here you can view your profile and update your information.</p>
-
-    <form action="/update-info" method="POST">
-      <div>
-        <label for="firstName">First Name</label>
-        <input
-          type="text"
-          id="firstName"
-          name="firstName"
-          value="<%= user.firstName %>"
-          required
-        />
-      </div>
-
-      <div>
-        <label for="lastName">Last Name</label>
-        <input
-          type="text"
-          id="lastName"
-          name="lastName"
-          value="<%= user.lastName %>"
-          required
-        />
-      </div>
-
-      <div>
-        <button type="submit">Update Info</button>
-      </div>
-    </form>
 
     <a href="/log-out">Log Out</a>
   </body>

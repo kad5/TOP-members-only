@@ -17,7 +17,7 @@ const signUp = asyncHandler(async (req, res) => {
   const hashedPassword = await bcrypt.hash(password, 10);
 
   await db.addNewUser(username, hashedPassword, firstName, lastName);
-  res.redirect("/");
+  res.redirect("/log-in");
 });
 
 const logIn = passport.authenticate("local", {
@@ -43,7 +43,7 @@ const addMssage = asyncHandler(async (req, res) =>
 );
 
 const renderDashboard = asyncHandler(async (req, res) =>
-  res.send("dashboard page")
+  res.render("dashboard")
 );
 
 const updateInfo = asyncHandler(async (req, res) => res.send("info updated"));

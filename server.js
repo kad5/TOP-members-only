@@ -4,7 +4,7 @@ const express = require("express");
 const session = require("express-session");
 const router = require("./backend/routes/router");
 const errorHandler = require("./backend/middleware/errorHandler");
-const passport = require("./backend/middleware/auth");
+const { passport } = require("./backend/middleware/auth");
 
 const app = express();
 

@@ -39,4 +39,20 @@ passport.deserializeUser(async (id, done) => {
   }
 });
 
-module.exports = passport;
+function isAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect("/log-in");
+}
+
+function checkAuthLevel(requiredLevel) {
+  return (req, res, next) => {
+    if (req.isAuthenticated() && req.user.auth_level >= requiredLevel) {
+      return next();
+    }
+    res.status(403).send("Access denied");
+  };
+}
+
+module.exports = { passport, checkAuthLevel };
