@@ -20,10 +20,17 @@ const signUp = asyncHandler(async (req, res) => {
   res.redirect("/log-in");
 });
 
-const logIn = passport.authenticate("local", {
-  successRedirect: "/dashboard",
-  failureRedirect: "/log-in",
-});
+const logIn = [
+  passport.authenticate("local", {
+    failureRedirect: "/log-in",
+    failureMessage: true,
+  }),
+  (req, res) => {
+    const returnTo = req.session.returnTo || "/dashboard"; // redirect to saved URL or default
+    delete req.session.returnTo; // and delete it after use
+    res.redirect(returnTo);
+  },
+];
 
 const logOut = (req, res, next) => {
   req.logout((err) => {

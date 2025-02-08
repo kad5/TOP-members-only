@@ -2,7 +2,7 @@ const controller = require("../controllers/controller");
 const validation = require("../middleware/validations");
 const { Router } = require("express");
 const router = Router();
-const { checkAuthLevel } = require("../middleware/auth");
+const { checkAcess } = require("../middleware/auth");
 
 // public routes
 router.get("/", (req, res) => res.render("overview"));
@@ -14,7 +14,12 @@ router
 
 router
   .route("/log-in")
-  .get((req, res) => res.render("log-in"))
+  .get((req, res) => {
+    res.render("log-in", {
+      message: req.session.messages?.[0],
+    });
+    delete req.session.messages;
+  })
   .post(controller.logIn);
 
 router.get("/log-out", controller.logOut);
@@ -23,16 +28,16 @@ router.get("/documentation", (req, res) => res.render("documentation"));
 router.get("/messages", controller.renderAllmessages);
 
 // private routes
-router.post("/messages", checkAuthLevel(2), controller.addMssage);
+router.post("/messages", checkAcess(2), controller.addMssage);
 
 router
   .route("/dashboard")
-  .get(checkAuthLevel(1), controller.renderDashboard)
-  .post(checkAuthLevel(1), controller.updateInfo);
+  .get(checkAcess(1), controller.renderDashboard)
+  .post(checkAcess(1), controller.updateInfo);
 
-router.post("/notes", checkAuthLevel(1), controller.addNote);
+router.post("/notes", checkAcess(1), controller.addNote);
 
-router.get("/top-secret", checkAuthLevel(3), (req, res) =>
+router.get("/top-secret", checkAcess(3), (req, res) =>
   res.render("top-secret")
 );
 

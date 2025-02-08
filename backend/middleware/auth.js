@@ -39,20 +39,20 @@ passport.deserializeUser(async (id, done) => {
   }
 });
 
-function isAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect("/log-in");
-}
-
-function checkAuthLevel(requiredLevel) {
+function checkAcess(requiredLevel) {
   return (req, res, next) => {
-    if (req.isAuthenticated() && req.user.auth_level >= requiredLevel) {
+    if (!req.isAuthenticated()) {
+      req.session.originalPage = req.originalUrl; //stores the original url the user was trying to get to and returns them to it on successful login
+      return res.redirect("/log-in");
+    }
+
+    if (req.user.auth_level >= requiredLevel) {
       return next();
     }
-    res.status(403).send("Access denied");
+    const error = new Error("Access denied");
+    error.status = 403;
+    return next(error);
   };
 }
 
-module.exports = { passport, checkAuthLevel };
+module.exports = { passport, checkAcess };

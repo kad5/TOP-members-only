@@ -20,7 +20,10 @@ const signUp = [
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      return res.render("sign-up", {
+        errors: errors.array(),
+        formData: req.body, // to preserve form data in case frontend validation failed
+      });
     }
     next();
   },
