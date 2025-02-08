@@ -1,6 +1,11 @@
 const LocalStrategy = require("passport-local").Strategy;
+const bcrypt = require("bcryptjs");
 
-// any private for non users redirect to login
-// login or signup for logged in users redirects to dashboard
+/*
+const match = await bcrypt.compare(password, user.password);
+if (!match) {
+  // passwords do not match!
+  return done(null, false, { message: "Incorrect password" })
+}*/
 
 module.exports = {};

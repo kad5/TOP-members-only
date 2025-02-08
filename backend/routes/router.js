@@ -1,4 +1,5 @@
 const controller = require("../controllers/controller");
+const validation = require("../middleware/validations");
 const { Router } = require("express");
 const router = Router();
 
@@ -8,7 +9,7 @@ router.get("/", (req, res) => res.render("overview-page"));
 router
   .route("/sign-up")
   .get((req, res) => res.render("sign-up"))
-  .post((req, res) => res.send("signup form recieved"));
+  .post(validation.signUp, controller.signUp);
 
 router
   .route("/log-in")

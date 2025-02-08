@@ -2,11 +2,35 @@ const asyncHandler = require("express-async-handler");
 const db = require("../db/queries");
 const auth = require("../middleware/auth");
 
-const logIn = asyncHandler(async (req, res) =>
-  res.send("login attempt recieved")
-);
+// any private for non users redirect to login
+// login or signup for logged in users redirects to dashboard
 
-const logOut = asyncHandler(async (req, res) => res.send("logging out"));
+const signUp = asyncHandler(async (req, res, next) => {
+  const { password, username, firstName, lastName } = req.body;
+
+  const isTaken = await db.checkUsername(username);
+  if (isTaken) {
+    return res.status(400).send("The username is already taken.");
+  }
+
+  const hashedPassword = await bcrypt.hash(password, 10);
+  await db.addNewUser(username, hashedPassword, firstName, lastName);
+
+  res.redirect("/dashboard");
+});
+
+const logIn = asyncHandler(async (req, res) => {
+  res.redirect("/dashboard");
+});
+
+const logOut = (req, res, next) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
+  });
+};
 
 const renderAllmessages = asyncHandler(async (req, res) =>
   res.send("messages page")
@@ -25,6 +49,7 @@ const updateInfo = asyncHandler(async (req, res) => res.send("info updated"));
 const addNote = asyncHandler(async (req, res) => res.send("note recieved"));
 
 module.exports = {
+  signUp,
   logIn,
   logOut,
   renderAllmessages,
