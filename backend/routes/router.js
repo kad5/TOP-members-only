@@ -9,10 +9,13 @@ router.get("/", (req, res) => res.render("overview"));
 
 router
   .route("/sign-up")
-  .get((req, res) => res.render("sign-up"))
-  .post(validation.signUp, controller.signUp);
+  .get(controller.ensureNotAuth, (req, res) => res.render("sign-up"))
+  .post(controller.ensureNotAuth, validation.signUp, controller.signUp);
 
-router.route("/log-in").get(controller.logInGet).post(controller.logInPost);
+router
+  .route("/log-in")
+  .get(controller.ensureNotAuth, controller.logInGet)
+  .post(controller.ensureNotAuth, controller.logInPost);
 
 router.get("/log-out", controller.logOut);
 

@@ -1,3 +1,4 @@
+const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 
 const signUpValidation = [
@@ -20,13 +21,35 @@ const signUp = [
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.render("sign-up", {
+      const stuff = {
         errors: errors.array(),
         formData: req.body, // to preserve form data in case frontend validation failed
-      });
+      };
+      console.log(stuff);
+      return res.render("sign-up", stuff);
     }
     next();
   },
 ];
 
-module.exports = { signUp };
+const update = asyncHandler(async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const mistakes = errors.array();
+    const { password, ...data } = req.user;
+    const notes = await db.findNotesByUserId(data.id).rows;
+    const messages = await db.findMessagesByUserId(data.id).rows;
+    return res.render("dashboard", {
+      data,
+      notes,
+      messages,
+      flag: "update",
+      mistakes,
+    });
+  }
+  next();
+});
+
+const updateData = [...signUpValidation, update];
+
+module.exports = { signUp, updateData };

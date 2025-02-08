@@ -20,8 +20,7 @@ passport.use(
 
       return done(null, user);
     } catch (err) {
-      console.log("its me");
-      //return done(err);
+      return done(err);
     }
   })
 );
@@ -44,7 +43,6 @@ function checkAcess(requiredLevel) {
   return (req, res, next) => {
     if (!req.isAuthenticated()) {
       req.session.returnTo = req.originalUrl; //stores the original url the user was trying to get to and returns them to it on successful login
-      console.log(req.session.returnTo);
       return res.redirect("/log-in");
     }
 

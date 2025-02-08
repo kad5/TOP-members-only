@@ -32,9 +32,9 @@ const findUserByUsername = (username) =>
 const findUserById = (userId) =>
   pool.query("SELECT * FROM my_users WHERE id = $1", [userId]);
 
-const findMessageById = (userId) =>
+const findMessagesByUserId = (userId) =>
   pool.query("SELECT * FROM messages WHERE user_id = $1", [userId]);
-const findNoteById = (userId) =>
+const findNotesByUserId = (userId) =>
   pool.query("SELECT * FROM notes WHERE user_id = $1", [userId]);
 
 // update
@@ -58,9 +58,9 @@ const updatePassword = (userId, newPassword) =>
     userId,
     newPassword,
   ]);
-const updateNote = (userId, newNote) =>
+const updateNote = (noteId, newNote) =>
   pool.query("UPDATE notes SET note = $2 WHERE id = $1 RETURNING *;", [
-    userId,
+    noteId,
     newNote,
   ]);
 
@@ -81,8 +81,8 @@ module.exports = {
   checkUsername,
   findUserByUsername,
   findUserById,
-  findMessageById,
-  findNoteById,
+  findMessagesByUserId,
+  findNotesByUserId,
   updateAuthLevel,
   updateFirstName,
   updateLastName,
