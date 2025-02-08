@@ -4,14 +4,14 @@ Members Only
 
 npm
 express, express async handler, express validator, ejs, dotenv, passport, passport local, express session, bcryptjs.
-
+--done--
 ------------------------------------------------------------------------------
 
 db : 3 tables  
   - users table (id, first name, last name, username/email, password, auth level [1 , 2 ,3, 4 (admin)])
   - messages (id, user_id, message, timestamp)
   - user notes (id, user_id, note, timestamp)
-
+--done--
 ------------------------------------------------------------------------------
 
 queries
@@ -32,7 +32,8 @@ queries
   delete user
   delete message
   delete note
-
+--done--
+added extra get user by username and checkusername
 ------------------------------------------------------------------------------
 
 backend routes
@@ -48,7 +49,7 @@ public
   get / logout
 
 private
-  get / dashboard / :id > dashboard
+  get / dashboard > dashboard
     > account details, username , name , lastname, subscription level
     > form to change details
     > script to view personal notes
@@ -60,6 +61,8 @@ private
 any private for non users redirect to login
 login or signup for logged in users redirects to dashboard
 
+--done--
+added get / top-secret route to showcase restricted access
 ------------------------------------------------------------------------------
 
 views

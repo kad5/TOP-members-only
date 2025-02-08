@@ -33,17 +33,12 @@ const logInGet = [
   },
 ];
 
-const logInPost = [
-  passport.authenticate("local", {
-    failureRedirect: "/log-in",
-    failureMessage: true,
-  }),
-  (req, res) => {
-    const returnTo = req.session.returnTo || "/dashboard"; // redirect to saved URL or default being dashboard
-    delete req.session.returnTo;
-    res.redirect(returnTo);
-  },
-];
+const logInPost = passport.authenticate("local", {
+  successReturnToOrRedirect: "/dashboard",
+  failureRedirect: "/log-in",
+  failureMessage: true,
+  keepSessionInfo: true,
+});
 
 const logOut = (req, res, next) => {
   if (!req.isAuthenticated()) {

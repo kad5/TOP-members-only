@@ -43,7 +43,8 @@ passport.deserializeUser(async (id, done) => {
 function checkAcess(requiredLevel) {
   return (req, res, next) => {
     if (!req.isAuthenticated()) {
-      req.session.originalPage = req.originalUrl; //stores the original url the user was trying to get to and returns them to it on successful login
+      req.session.returnTo = req.originalUrl; //stores the original url the user was trying to get to and returns them to it on successful login
+      console.log(req.session.returnTo);
       return res.redirect("/log-in");
     }
 
