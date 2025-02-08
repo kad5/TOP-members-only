@@ -1,14 +1,14 @@
 Members Only 
 
 ------------------------------------------------------------------------------
+
 npm
 express, express async handler, express validator, ejs, dotenv, passport, passport local, express session, bcryptjs.
-
 
 ------------------------------------------------------------------------------
 
 db : 3 tables  
-  - users table (id, first name, last name, username/email, password, auth level [1 , 2 ,3], IsAdmin)
+  - users table (id, first name, last name, username/email, password, auth level [1 , 2 ,3, 4 (admin)])
   - messages (id, user_id, message, timestamp)
   - user notes (id, user_id, note, timestamp)
 
