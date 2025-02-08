@@ -25,7 +25,7 @@ const checkUsername = async (username) => {
   const user = await pool.query("SELECT * FROM my_users WHERE username = $1", [
     username,
   ]);
-  return result.rows.length > 0;
+  return user.rows.length > 0;
 };
 const findUserByUsername = (username) =>
   pool.query("SELECT * FROM my_users WHERE username = $1", [username]);

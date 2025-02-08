@@ -1,26 +1,28 @@
 const asyncHandler = require("express-async-handler");
 const db = require("../db/queries");
+const passport = require("passport");
 const auth = require("../middleware/auth");
+const bcrypt = require("bcryptjs");
 
 // any private for non users redirect to login
 // login or signup for logged in users redirects to dashboard
 
-const signUp = asyncHandler(async (req, res, next) => {
-  const { password, username, firstName, lastName } = req.body;
+const signUp = asyncHandler(async (req, res) => {
+  const { username, password, firstName, lastName } = req.body;
 
   const isTaken = await db.checkUsername(username);
   if (isTaken) {
     return res.status(400).send("The username is already taken.");
   }
-
   const hashedPassword = await bcrypt.hash(password, 10);
-  await db.addNewUser(username, hashedPassword, firstName, lastName);
 
-  res.redirect("/dashboard");
+  await db.addNewUser(username, hashedPassword, firstName, lastName);
+  res.redirect("/");
 });
 
-const logIn = asyncHandler(async (req, res) => {
-  res.redirect("/dashboard");
+const logIn = passport.authenticate("local", {
+  successRedirect: "/dashboard",
+  failureRedirect: "/log-in",
 });
 
 const logOut = (req, res, next) => {

@@ -24,10 +24,11 @@ const errorHandler = (err, req, res, next) => {
       break;
 
     case constants.SERVER_ERROR:
-      res.render("500", {
+      console.log(err);
+      /*res.render("500", {
         message:
           "Oops! Something went wrong on our end. Please try again later.",
-      });
+      });*/
       break;
 
     case constants.UNAUTHORIZED:

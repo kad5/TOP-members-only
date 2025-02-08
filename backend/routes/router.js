@@ -2,9 +2,9 @@ const controller = require("../controllers/controller");
 const validation = require("../middleware/validations");
 const { Router } = require("express");
 const router = Router();
-
+const passport = require("../middleware/auth");
 // public routes
-router.get("/", (req, res) => res.render("overview-page"));
+router.get("/", (req, res) => res.render("overview"));
 
 router
   .route("/sign-up")
