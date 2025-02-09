@@ -3,24 +3,68 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard</title>
+    <title>Settings - My members Club</title>
   </head>
   <body>
-    <h1>Welcome to Your settings!</h1>
-
-    <p><%= mistakes %></p>
-    <p>Here are your details</p>
-    <p>username : @<%= data.username %></p>
-    <p>first name : <%= data.first_name %></p>
-    <p>last name : <%= data.last_name %></p>
-    <p>password : *****</p>
-    <p>your auth level : <%= data.auth_level %></p>
-    <p>account created on : <%= data.created_at %></p>
-
-    <p>check exclusive access</p>
-    <a href="/top-secret">top secret</a>
-    <br />
-    <a href="/dashboard">Dashboard</a>
-    <a href="/log-out">Log Out</a>
+    <header>
+      <div class="wrapper">
+        <a href="/">My Members Club</a>
+        <nav>
+          <a href="/documentation">Review Code</a>
+          <a href="/messages">Messages Board</a>
+          <a href="/dashboard">Dashboard</a>
+          <a href="/settings">Settings</a>
+          <a href="/log-out">Log Out</a>
+        </nav>
+      </div>
+    </header>
+    <div class="settings wrapper">
+      <h1>Welcome to Your settings!</h1>
+      <p><%= mistakes %></p>
+      <div class="data">
+        <p>Here are your details</p>
+        <form action="settings" method="post">
+          <p>username: @ <%= data.username %></p>
+          <p>
+            first name:
+            <input
+              type="text"
+              name="firstName"
+              value="<%= data.first_name %>"
+              placeholder="<%= data.first_name %>"
+              required
+            />
+          </p>
+          <p>
+            last name:
+            <input
+              type="text"
+              name="lastName"
+              value="<%= data.last_name %>"
+              placeholder="<%= data.last_name %>"
+              required
+            />
+          </p>
+          <p>
+            your auth level:
+            <input
+              type="number"
+              name="auth_level"
+              value="<%= data.auth_level %>"
+              placeholder="<%= data.auth_level %>"
+              min="1"
+              max="3"
+              required
+            />
+          </p>
+          <button>Submit</button>
+        </form>
+        <p>account created on : <%= data.created_at %></p>
+      </div>
+      <div>
+        <p>check exclusive access</p>
+        <a href="/top-secret">top secret</a>
+      </div>
+    </div>
   </body>
 </html>

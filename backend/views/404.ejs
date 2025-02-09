@@ -1,2 +1,30 @@
-<h1>Oops, page doesnt exist</h1>
-<a href="/dashboard">Dashboard</a>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 - My members Club</title>
+  </head>
+  <body>
+    <header>
+      <div class="wrapper">
+        <p>My Members Club</p>
+        <nav>
+          <a href="/documentation">Review Code</a>
+          <a href="/messages">Messages Board</a>
+          <% if (isLoggedIn) { %>
+          <a href="/dashboard">Dashboard</a>
+          <a href="/settings">Settings</a>
+          <a href="/log-out">Log Out</a>
+          <% } else { %>
+          <a href="/log-in">Sign In</a>
+          <a href="/sign-up">Sign Up</a>
+          <% } %>
+        </nav>
+      </div>
+    </header>
+    <div class="wrapper">
+      <h1>Oops, page doesnt exist</h1>
+    </div>
+  </body>
+</html>

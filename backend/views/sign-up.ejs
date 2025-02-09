@@ -3,37 +3,43 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sign Up</title>
+    <title>Sign Up - My Members Club</title>
   </head>
   <body>
-    <h1>Create an Account</h1>
-
-    <form action="/sign-up" method="POST">
-      <div>
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username" required />
+    <header>
+      <div class="wrapper">
+        <a href="/">My Members Club</a>
+        <nav>
+          <a href="/documentation">Review Code</a>
+          <a href="/messages">Messages Board</a>
+          <a href="/log-in">Log in</a>
+        </nav>
       </div>
-
-      <div>
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" required />
-      </div>
-
-      <div>
-        <label for="firstName">First Name</label>
-        <input type="text" id="firstName" name="firstName" required />
-      </div>
-
-      <div>
-        <label for="lastName">Last Name</label>
-        <input type="text" id="lastName" name="lastName" required />
-      </div>
-
-      <div>
-        <button type="submit">Sign Up</button>
-      </div>
-    </form>
-
-    <p>Already have an account? <a href="/log-in">Sign In</a></p>
+    </header>
+    <div class="sign-up-page wrapper">
+      <h1>Create an Account</h1>
+      <form action="/sign-up" method="POST">
+        <div>
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" required />
+        </div>
+        <div>
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required />
+        </div>
+        <div>
+          <label for="firstName">First Name</label>
+          <input type="text" id="firstName" name="firstName" required />
+        </div>
+        <div>
+          <label for="lastName">Last Name</label>
+          <input type="text" id="lastName" name="lastName" required />
+        </div>
+        <div>
+          <button type="submit">Sign Up</button>
+        </div>
+      </form>
+      <p>Already have an account? <a href="/log-in">Sign In</a></p>
+    </div>
   </body>
 </html>

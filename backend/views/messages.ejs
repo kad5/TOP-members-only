@@ -1,20 +1,47 @@
-<h1>All messages</h1>
-
-<section>
-  <% if (messages.length < 1) { %>
-  <p>no messages yet</p>
-  <% } else { %> <% messages.forEach(msg => { %>
-  <article>
-    <p>@<%= msg.username %></p>
-    <p><%= msg.first_name %></p>
-    <p><%= msg.last_name %></p>
-    <p><%= msg.message %></p>
-    <p><%= msg.created_at %></p>
-  </article>
-  <% }); %> <% } %>
-</section>
-<form action="/messages" method="post">
-  <input name="message" type="text" required />
-  <button type="submit">add message</button>
-</form>
-<a href="/dashboard">Dashboard</a>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Messages Board - My members Club</title>
+  </head>
+  <body>
+    <header>
+      <div class="wrapper">
+        <a href="/">My Members Club</a>
+        <nav>
+          <a href="/documentation">Review Code</a>
+          <a href="/messages">Messages Board</a>
+          <% if (isLoggedIn) { %>
+          <a href="/dashboard">Dashboard</a>
+          <a href="/settings">Settings</a>
+          <a href="/log-out">Log Out</a>
+          <% } else { %>
+          <a href="/log-in">Sign In</a>
+          <a href="/sign-up">Sign Up</a>
+          <% } %>
+        </nav>
+      </div>
+    </header>
+    <div class="msgsPage wrapper">
+      <h1>All messages</h1>
+      <section>
+        <% if (messages.length < 1) { %>
+        <p>no messages yet</p>
+        <% } else { %> <% messages.forEach(msg => { %>
+        <article>
+          <p>@<%= msg.username %></p>
+          <p><%= msg.first_name %></p>
+          <p><%= msg.last_name %></p>
+          <p><%= msg.message %></p>
+          <p><%= msg.created_at %></p>
+        </article>
+        <% }); %> <% } %>
+      </section>
+      <form action="/messages" method="post">
+        <input name="message" type="text" required />
+        <button type="submit">add message</button>
+      </form>
+    </div>
+  </body>
+</html>

@@ -47,7 +47,10 @@ const logOut = (req, res, next) => {
 const renderAllmessages = asyncHandler(async (req, res) => {
   const { rows } = await db.getAllmessages();
   if (rows.length < 1) return res.render("messages", { messages: [] });
-  res.render("messages", { messages: rows });
+  res.render("messages", {
+    isLoggedIn: req.isAuthenticated(),
+    messages: rows,
+  });
 });
 
 const addMssage = asyncHandler(async (req, res) => {
@@ -82,9 +85,6 @@ const updateInfo = asyncHandler(async (req, res) => {
   if (data.auth_level !== newData.auth_level) {
     await db.updateAuthLevel(data.id, newData.auth_level);
   }
-  if (data.password !== newData.password) {
-    await db.updatePassword(data.id, newData.password);
-  }
 
   res.redirect("/dashboard");
 });
@@ -101,7 +101,6 @@ const updateNote = asyncHandler(async (req, res) => {
   const { noteId, note } = req.body;
   const fetched = await db.findNoteById(noteId);
   const data = fetched.rows[0];
-  console.log(fetched);
   if (data && data.user_id === userId) {
     await db.updateNote(noteId, note);
   }

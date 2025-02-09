@@ -3,13 +3,26 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Landing Page</title>
+    <title>My members Club</title>
   </head>
   <body>
+    <header>
+      <div class="wrapper">
+        <a href="/">My Members Club</a>
+        <nav>
+          <a href="/documentation">Review Code</a>
+          <a href="/messages">Messages Board</a>
+          <% if (isLoggedIn) { %>
+          <a href="/dashboard">Dashboard</a>
+          <a href="/settings">Settings</a>
+          <a href="/log-out">Log Out</a>
+          <% } else { %>
+          <a href="/log-in">Sign In</a>
+          <a href="/sign-up">Sign Up</a>
+          <% } %>
+        </nav>
+      </div>
+    </header>
     <h1>Welcome to Our Application!</h1>
-    <nav>
-      <a href="/log-in">Sign In</a> |
-      <a href="/sign-up">Sign Up</a>
-    </nav>
   </body>
 </html>

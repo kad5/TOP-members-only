@@ -5,7 +5,11 @@ const router = Router();
 const { checkAcess, ensureNotAuth } = require("../middleware/auth");
 
 // public routes
-router.get("/", (req, res) => res.render("overview"));
+router.get("/", (req, res) =>
+  res.render("overview", {
+    isLoggedIn: req.isAuthenticated(),
+  })
+);
 
 router
   .route("/sign-up")
@@ -19,7 +23,11 @@ router
 
 router.get("/log-out", controller.logOut);
 
-router.get("/documentation", (req, res) => res.render("documentation"));
+router.get("/documentation", (req, res) =>
+  res.render("documentation", {
+    isLoggedIn: req.isAuthenticated(),
+  })
+);
 router.get("/messages", controller.renderAllmessages);
 
 // private routes
