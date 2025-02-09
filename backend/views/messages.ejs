@@ -1,0 +1,9 @@
+<h1>All messages</h1>
+
+<section>
+  <% if (messages.length < 1) { %>
+  <p>no messages yet</p>
+  <% } else { messages.forEach(msg => { %>
+  <p><%= msg %></p>
+  <% }); %> <% } %>
+</section>

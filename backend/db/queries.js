@@ -19,7 +19,12 @@ const addNewNote = (userId, note) =>
 
 // read
 const getAllusers = () => pool.query("SELECT * FROM my_users");
-const getAllmessages = () => pool.query("SELECT * FROM messages");
+const getAllmessages = () =>
+  pool.query(`
+    SELECT messages.id, messages.message, messages.created_at, my_users.username, my_users.first_name, my_users.last_name
+    FROM messages
+    JOIN my_users ON messages.user_id = users.id
+  `);
 
 const checkUsername = async (username) => {
   const user = await pool.query("SELECT * FROM my_users WHERE username = $1", [
