@@ -37,7 +37,7 @@ const signUp = [
   },
 ];
 
-const update = asyncHandler(async (req, res, next) => {
+const update = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     const mistakes = errors.array();
@@ -45,8 +45,15 @@ const update = asyncHandler(async (req, res, next) => {
     return res.render("settings", { data, mistakes });
   }
   next();
-});
+};
 
-const updateData = [...signUpValidation, update];
+const updateData = [
+  body("firstName").trim().notEmpty().withMessage("First name is required."),
+  body("lastName").trim().notEmpty().withMessage("Last name is required."),
+  body("auth_level")
+    .isInt({ min: 1, max: 3 })
+    .withMessage("Auth level must be between 1 and 3"),
+  update,
+];
 
 module.exports = { signUp, updateData };

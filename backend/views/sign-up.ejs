@@ -30,7 +30,7 @@
             type="text"
             id="username"
             name="username"
-            value="<%= stuff && stuff.formData ? stuff.formData.username : '' %>"
+            value="<%= locals.stuff && locals.stuff.formData ? stuff.formData.username : '' %>"
             required
           />
         </div>
@@ -53,7 +53,7 @@
             type="text"
             id="firstName"
             name="firstName"
-            value="<%= stuff && stuff.formData ? stuff.formData.firstName : '' %>"
+            value="<%= locals.stuff && locals.stuff.formData ? stuff.formData.firstName : '' %>"
             required
           />
         </div>
@@ -63,7 +63,7 @@
             type="text"
             id="lastName"
             name="lastName"
-            value="<%= stuff && stuff.formData ? stuff.formData.lastName : '' %>"
+            value="<%= locals.stuff && locals.stuff.formData ?  stuff.formData.lastName : '' %>"
             required
           />
         </div>

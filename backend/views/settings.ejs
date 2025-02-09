@@ -20,10 +20,12 @@
     </header>
     <div class="settings wrapper">
       <h1>Welcome to Your settings!</h1>
-      <p><%= mistakes %></p>
+      <% if (locals.mistakes) { %> <% locals.mistakes.forEach(msg => { %>
+      <div style="color: red"><%= msg.msg %></div>
+      <% }) %> <% } %>
       <div class="data">
         <p>Here are your details</p>
-        <form action="settings" method="post">
+        <form action="/settings" method="post">
           <p>username: @ <%= data.username %></p>
           <p>
             first name:
@@ -32,7 +34,6 @@
               name="firstName"
               value="<%= data.first_name %>"
               placeholder="<%= data.first_name %>"
-              required
             />
           </p>
           <p>
