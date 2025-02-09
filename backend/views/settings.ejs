@@ -6,10 +6,21 @@
     <title>Dashboard</title>
   </head>
   <body>
-    <h1>Welcome to Your Dashboard!</h1>
+    <h1>Welcome to Your settings!</h1>
 
-    <p>Here you can view your profile and update your information.</p>
+    <p><%= mistakes %></p>
+    <p>Here are your details</p>
+    <p>username : @<%= data.username %></p>
+    <p>first name : <%= data.first_name %></p>
+    <p>last name : <%= data.last_name %></p>
+    <p>password : *****</p>
+    <p>your auth level : <%= data.auth_level %></p>
+    <p>account created on : <%= data.created_at %></p>
 
+    <p>check exclusive access</p>
+    <a href="/top-secret">top secret</a>
+    <br />
+    <a href="/dashboard">Dashboard</a>
     <a href="/log-out">Log Out</a>
   </body>
 </html>

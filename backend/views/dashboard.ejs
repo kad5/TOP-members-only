@@ -7,9 +7,15 @@
   </head>
   <body>
     <h1>Welcome to Your Dashboard!</h1>
-
+    <a href="/documentation">review code</a>
+    <a href="/messages">check all messages</a>
+    <p>Welcome back <%= data.first_name %> <%= data.last_name %></p>
+    <p>your messages</p>
+    <%= messages %>
+    <p>you notes</p>
+    <%= notes %>
     <p>Here you can view your profile and update your information.</p>
-    <a href="/settings"></a>
+    <a href="/settings">settings</a>
     <a href="/log-out">Log Out</a>
   </body>
 </html>
