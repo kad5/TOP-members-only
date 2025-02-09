@@ -23,19 +23,15 @@ router.get("/documentation", (req, res) => res.render("documentation"));
 router.get("/messages", controller.renderAllmessages);
 
 // private routes
-router.post("/messages", checkAcess(2), controller.addMssage);
-
-router
-  .route("/dashboard")
-  .get(checkAcess(1), controller.renderDashboard)
-  .post(checkAcess(1), controller.updateInfo);
-
+router.get("/dashboard", checkAcess(1), controller.renderDashboard);
 router
   .route("/settings")
   .get(checkAcess(1), controller.renderSettings)
   .post(checkAcess(1), controller.updateInfo);
 
 router.post("/notes", checkAcess(1), controller.addNote);
+router.post("/updateNote", checkAcess(1), controller.updateNote);
+router.post("/messages", checkAcess(2), controller.addMssage);
 
 router.get("/top-secret", checkAcess(3), (req, res) =>
   res.render("top-secret")

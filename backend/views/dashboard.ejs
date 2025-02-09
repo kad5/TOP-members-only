@@ -6,16 +6,68 @@
     <title>Dashboard</title>
   </head>
   <body>
-    <h1>Welcome to Your Dashboard!</h1>
-    <a href="/documentation">review code</a>
-    <a href="/messages">check all messages</a>
-    <p>Welcome back <%= data.first_name %> <%= data.last_name %></p>
-    <p>your messages</p>
-    <%= messages %>
-    <p>you notes</p>
-    <%= notes %>
-    <p>Here you can view your profile and update your information.</p>
-    <a href="/settings">settings</a>
-    <a href="/log-out">Log Out</a>
+    <header>
+      <div class="wrapper">
+        <p>My Members Club</p>
+        <nav>
+          <a href="/documentation">Review Code</a>
+          <a href="/messages">Messages Board</a>
+          <a href="/settings">Settings</a>
+          <a href="/log-out">Log Out</a>
+        </nav>
+      </div>
+    </header>
+    <h1>
+      Welcome back,
+      <span><%= data.first_name %> <%= data.last_name %></span>
+    </h1>
+    <div class="wrapper">
+      <div>
+        <h2>your messages</h2>
+        <section>
+          <% if (messages.length < 1) { %>
+          <p>no messages yet</p>
+          <% } else { %> <% messages.forEach(msg => { %>
+          <article>
+            <p>@<%= data.username %></p>
+            <p><%= data.first_name %></p>
+            <p><%= data.last_name %></p>
+            <p><%= msg.message %></p>
+            <p><%= msg.created_at %></p>
+          </article>
+          <% }); %> <% } %>
+        </section>
+      </div>
+      <div>
+        <h2>your notes</h2>
+        <section>
+          <% if (notes.length < 1) { %>
+          <p>no notes yet</p>
+          <% } else { %> <% notes.forEach(note => { %>
+          <article>
+            <div>
+              <p><%= note.note %></p>
+              <p><%= note.created_at %></p>
+              <form action="/updateNote" method="post">
+                <input name="note" type="text" required />
+                <input
+                  name="noteId"
+                  type="hidden"
+                  value="<%= note.id %>"
+                  required
+                />
+                <button type="submit">Update</button>
+              </form>
+            </div>
+            <button class="view">view</button>
+          </article>
+          <% }); %> <% } %>
+        </section>
+        <form action="/notes" method="post">
+          <input name="note" type="text" required />
+          <button type="submit">New note</button>
+        </form>
+      </div>
+    </div>
   </body>
 </html>

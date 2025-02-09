@@ -59,9 +59,9 @@ const addMssage = asyncHandler(async (req, res) => {
 
 const renderDashboard = asyncHandler(async (req, res) => {
   const { password, ...data } = req.user;
-  const notes = await db.findNotesByUserId(data.id).rows;
-  const messages = await db.findMessagesByUserId(data.id).rows;
-  res.render("dashboard", { data, notes, messages });
+  const notes = await db.findNotesByUserId(data.id);
+  const messages = await db.findMessagesByUserId(data.id);
+  res.render("dashboard", { data, notes: notes.rows, messages: messages.rows });
 });
 const renderSettings = asyncHandler(async (req, res) => {
   const { password, ...data } = req.user;
@@ -99,8 +99,10 @@ const addNote = asyncHandler(async (req, res) => {
 const updateNote = asyncHandler(async (req, res) => {
   const userId = req.user.id;
   const { noteId, note } = req.body;
-  const fetched = await db.findNoteById(noteId).rows[0];
-  if (fetched && fetched.user_id === userId) {
+  const fetched = await db.findNoteById(noteId);
+  const data = fetched.rows[0];
+  console.log(fetched);
+  if (data && data.user_id === userId) {
     await db.updateNote(noteId, note);
   }
   res.redirect("/dashboard");

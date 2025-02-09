@@ -3,7 +3,18 @@
 <section>
   <% if (messages.length < 1) { %>
   <p>no messages yet</p>
-  <% } else { messages.forEach(msg => { %>
-  <p><%= msg %></p>
+  <% } else { %> <% messages.forEach(msg => { %>
+  <article>
+    <p>@<%= msg.username %></p>
+    <p><%= msg.first_name %></p>
+    <p><%= msg.last_name %></p>
+    <p><%= msg.message %></p>
+    <p><%= msg.created_at %></p>
+  </article>
   <% }); %> <% } %>
 </section>
+<form action="/messages" method="post">
+  <input name="message" type="text" required />
+  <button type="submit">add message</button>
+</form>
+<a href="/dashboard">Dashboard</a>

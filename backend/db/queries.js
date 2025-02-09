@@ -23,7 +23,7 @@ const getAllmessages = () =>
   pool.query(`
     SELECT messages.id, messages.message, messages.created_at, my_users.username, my_users.first_name, my_users.last_name
     FROM messages
-    JOIN my_users ON messages.user_id = users.id
+    JOIN my_users ON messages.user_id = my_users.id
   `);
 
 const checkUsername = async (username) => {
@@ -41,6 +41,8 @@ const findMessagesByUserId = (userId) =>
   pool.query("SELECT * FROM messages WHERE user_id = $1", [userId]);
 const findNotesByUserId = (userId) =>
   pool.query("SELECT * FROM notes WHERE user_id = $1", [userId]);
+const findNoteById = (noteId) =>
+  pool.query("SELECT * FROM notes WHERE id = $1", [noteId]);
 
 // update
 const updateAuthLevel = (userId, newAuthLevel) =>
@@ -88,6 +90,7 @@ module.exports = {
   findUserById,
   findMessagesByUserId,
   findNotesByUserId,
+  findNoteById,
   updateAuthLevel,
   updateFirstName,
   updateLastName,
