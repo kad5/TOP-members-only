@@ -38,9 +38,9 @@
       </form>
       <% } %>
       <section>
-        <% if (messages.length < 1) { %>
+        <% if (locals.messages.length < 1) { %>
         <p>no messages yet</p>
-        <% } else { %> <% messages.reverse().forEach(msg => { %>
+        <% } else { %> <% locals.messages.reverse().forEach(msg => { %>
         <article>
           <p>@<%= auth_level > 0 ? msg.username : "anon_user" %></p>
           <div>
