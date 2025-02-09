@@ -38,10 +38,10 @@
       </form>
       <% } %>
       <section>
-        <% if (!locals.messages || locals.messages.length === 0) { %>
+        <% if (!messages || messages.length === 0) { %>
         <p>no messages yet</p>
-        <% } else { %> <% const sortedMessages = [...locals.messages].reverse();
-        %> <% sortedMessages.forEach(msg => { %>
+        <% } else { %> <% const sortedMessages = [...messages].reverse(); %> <%
+        sortedMessages.forEach(msg => { %>
         <article>
           <p>@<%= auth_level > 0 ? msg.username : "anon_user" %></p>
           <div>
