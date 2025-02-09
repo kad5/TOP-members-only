@@ -9,9 +9,11 @@ const signUp = asyncHandler(async (req, res) => {
 
   const isTaken = await db.checkUsername(username);
   if (isTaken) {
-    return res.render("sign-up", {
-      messages: [{ msg: "The username is already taken", path: "username" }],
-    });
+    const stuff = {
+      errors: [{ msg: "The username is already taken", path: "username" }],
+      formData: req.body, // to preserve form data in case frontend validation failed
+    };
+    return res.render("sign-up", { stuff });
   }
   const hashedPassword = await bcrypt.hash(password, 10);
 

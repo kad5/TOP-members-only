@@ -12,6 +12,12 @@ const signUpValidation = [
     .withMessage("Password must be at least 6 characters long.")
     .matches(/\d/)
     .withMessage("Password must contain a number."),
+
+  body("confirmPassword")
+    .trim()
+    .custom((value, { req }) => value === req.body.password)
+    .withMessage("Passwords do not match"),
+
   body("firstName").trim().notEmpty().withMessage("First name is required."),
   body("lastName").trim().notEmpty().withMessage("Last name is required."),
 ];
@@ -25,8 +31,7 @@ const signUp = [
         errors: errors.array(),
         formData: req.body, // to preserve form data in case frontend validation failed
       };
-      console.log(stuff);
-      return res.render("sign-up", stuff);
+      return res.render("sign-up", { stuff });
     }
     next();
   },

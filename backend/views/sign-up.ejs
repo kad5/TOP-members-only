@@ -18,22 +18,54 @@
     </header>
     <div class="sign-up-page wrapper">
       <h1>Create an Account</h1>
+
+      <% if (locals.stuff) { %> <% stuff.errors.forEach(msg => { %>
+      <div style="color: red"><%= msg.msg %></div>
+      <% }) %> <% } %>
+
       <form action="/sign-up" method="POST">
         <div>
           <label for="username">Username</label>
-          <input type="text" id="username" name="username" required />
+          <input
+            type="text"
+            id="username"
+            name="username"
+            value="<%= stuff && stuff.formData ? stuff.formData.username : '' %>"
+            required
+          />
         </div>
         <div>
           <label for="password">Password</label>
           <input type="password" id="password" name="password" required />
         </div>
         <div>
+          <label for="confirmPassword">Confirm password</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            required
+          />
+        </div>
+        <div>
           <label for="firstName">First Name</label>
-          <input type="text" id="firstName" name="firstName" required />
+          <input
+            type="text"
+            id="firstName"
+            name="firstName"
+            value="<%= stuff && stuff.formData ? stuff.formData.firstName : '' %>"
+            required
+          />
         </div>
         <div>
           <label for="lastName">Last Name</label>
-          <input type="text" id="lastName" name="lastName" required />
+          <input
+            type="text"
+            id="lastName"
+            name="lastName"
+            value="<%= stuff && stuff.formData ? stuff.formData.lastName : '' %>"
+            required
+          />
         </div>
         <div>
           <button type="submit">Sign Up</button>
