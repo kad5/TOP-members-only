@@ -40,7 +40,7 @@
       <section>
         <% if (messages.length < 1) { %>
         <p>no messages yet</p>
-        <% } else { %> <% messages.forEach(msg => { %>
+        <% } else { %> <% messages.reverse().forEach(msg => { %>
         <article>
           <p>@<%= auth_level > 0 ? msg.username : "anon_user" %></p>
           <div>
