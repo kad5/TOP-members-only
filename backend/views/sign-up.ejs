@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign Up - My Members Club</title>
+    <link rel="stylesheet" href="/css/styles.css" />
   </head>
   <body>
     <header>
@@ -25,43 +26,43 @@
 
       <form action="/sign-up" method="POST">
         <div>
-          <label for="username">Username</label>
           <input
             type="text"
-            id="username"
+            placeholder="username"
             name="username"
             value="<%= locals.stuff && locals.stuff.formData ? stuff.formData.username : '' %>"
             required
           />
         </div>
         <div>
-          <label for="password">Password</label>
-          <input type="password" id="password" name="password" required />
-        </div>
-        <div>
-          <label for="confirmPassword">Confirm password</label>
           <input
             type="password"
-            id="confirmPassword"
+            name="password"
+            placeholder="password"
+            required
+          />
+        </div>
+        <div>
+          <input
+            type="password"
+            placeholder="confirmPassword"
             name="confirmPassword"
             required
           />
         </div>
         <div>
-          <label for="firstName">First Name</label>
           <input
             type="text"
-            id="firstName"
+            placeholder="firstName"
             name="firstName"
             value="<%= locals.stuff && locals.stuff.formData ? stuff.formData.firstName : '' %>"
             required
           />
         </div>
         <div>
-          <label for="lastName">Last Name</label>
           <input
             type="text"
-            id="lastName"
+            placeholder="lastName"
             name="lastName"
             value="<%= locals.stuff && locals.stuff.formData ?  stuff.formData.lastName : '' %>"
             required

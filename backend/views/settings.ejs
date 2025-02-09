@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Settings - My members Club</title>
+    <link rel="stylesheet" href="/css/styles.css" />
   </head>
   <body>
     <header>
@@ -27,17 +28,17 @@
         <p>Here are your details</p>
         <form action="/settings" method="post">
           <p>username: @ <%= data.username %></p>
-          <p>
-            first name:
+          <div>
+            <p>first name:</p>
             <input
               type="text"
               name="firstName"
               value="<%= data.first_name %>"
               placeholder="<%= data.first_name %>"
             />
-          </p>
-          <p>
-            last name:
+          </div>
+          <div>
+            <p>last name:</p>
             <input
               type="text"
               name="lastName"
@@ -45,9 +46,9 @@
               placeholder="<%= data.last_name %>"
               required
             />
-          </p>
-          <p>
-            your auth level:
+          </div>
+          <div>
+            <p>your auth level:</p>
             <input
               type="number"
               name="auth_level"
@@ -57,12 +58,12 @@
               max="3"
               required
             />
-          </p>
-          <button>Submit</button>
+          </div>
+          <button>Update your data</button>
         </form>
         <p>account created on : <%= data.created_at %></p>
       </div>
-      <div>
+      <div class="top">
         <p>check exclusive access</p>
         <a href="/top-secret">top secret</a>
       </div>

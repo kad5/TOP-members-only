@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard - My members Club</title>
+    <link rel="stylesheet" href="/css/styles.css" />
   </head>
   <body>
     <header>
@@ -23,51 +24,71 @@
         Welcome back,
         <span><%= data.first_name %> <%= data.last_name %></span>
       </h1>
+      <br />
       <div>
-        <h2>your messages</h2>
-        <section>
-          <% if (messages.length < 1) { %>
-          <p>no messages yet</p>
-          <% } else { %> <% messages.forEach(msg => { %>
-          <article>
-            <p>@<%= data.username %></p>
-            <p><%= data.first_name %></p>
-            <p><%= data.last_name %></p>
-            <p><%= msg.message %></p>
-            <p><%= msg.created_at %></p>
-          </article>
-          <% }); %> <% } %>
-        </section>
-      </div>
-      <div>
-        <h2>your notes</h2>
-        <section>
-          <% if (notes.length < 1) { %>
-          <p>no notes yet</p>
-          <% } else { %> <% notes.forEach(note => { %>
-          <article>
-            <div>
+        <div>
+          <h2>your messages</h2>
+          <section>
+            <% if (messages.length < 1) { %>
+            <p>no messages yet</p>
+            <% } else { %> <% messages.forEach(msg => { %>
+            <article>
+              <p>@<%= data.username %></p>
+              <div>
+                <p><%= data.first_name %></p>
+                <p><%= data.last_name %></p>
+              </div>
+              <p>
+                <%= new Date(msg.created_at).toLocaleDateString('en-GB', { year:
+                'numeric', month: 'short', day: 'numeric' }) %>
+              </p>
+              <p><%= msg.message %></p>
+            </article>
+            <% }); %> <% } %>
+          </section>
+        </div>
+        <div class="notes">
+          <h2>your notes</h2>
+          <section>
+            <% if (notes.length < 1) { %>
+            <p>no notes yet</p>
+            <% } else { %> <% notes.forEach(note => { %>
+            <article>
               <p><%= note.note %></p>
-              <p><%= note.created_at %></p>
-              <form action="/updateNote" method="post">
-                <input name="note" type="text" required />
-                <input
-                  name="noteId"
-                  type="hidden"
-                  value="<%= note.id %>"
-                  required
-                />
-                <button type="submit">Update</button>
-              </form>
-            </div>
-            <button class="view">view</button>
-          </article>
-          <% }); %> <% } %>
-        </section>
-        <form action="/notes" method="post">
-          <input name="note" type="text" required />
-          <button type="submit">New note</button>
-        </form>
+              <div class="extra">
+                <div>
+                  <p><%= note.created_at %></p>
+                  <form action="/updateNote" method="post">
+                    <input
+                      name="note"
+                      type="text"
+                      placeholder="edit note"
+                      required
+                    />
+                    <input
+                      name="noteId"
+                      type="hidden"
+                      value="<%= note.id %>"
+                      required
+                    />
+                    <button type="submit">Update</button>
+                  </form>
+                </div>
+              </div>
+              <button class="view">- view -</button>
+            </article>
+            <% }); %> <% } %>
+          </section>
+          <form action="/notes" method="post">
+            <input
+              name="note"
+              type="text"
+              placeholder="add new note"
+              required
+            />
+            <button type="submit">Add</button>
+          </form>
+        </div>
       </div>
     </div>
   </body>

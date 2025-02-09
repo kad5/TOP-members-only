@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sign In - My Members Club</title>
+    <title>Log In - My Members Club</title>
+    <link rel="stylesheet" href="/css/styles.css" />
   </head>
   <body>
     <header>
@@ -17,21 +18,27 @@
       </div>
     </header>
     <div class="log-in-page wrapper">
-      <h1>Sign In</h1>
+      <br />
+      <br />
+      <h1>Log In</h1>
+      <br />
       <% if (locals.message) { %>
-      <div style="color: red"><%= locals.message %></div>
+      <p style="color: red"><%= locals.message %></p>
       <% } %>
       <form action="/log-in" method="POST">
         <div>
-          <label for="username">Username</label>
-          <input type="text" id="username" name="username" required />
+          <input type="text" placeholder="username" name="username" required />
         </div>
         <div>
-          <label for="password">Password</label>
-          <input type="password" id="password" name="password" required />
+          <input
+            type="password"
+            placeholder="password"
+            name="password"
+            required
+          />
         </div>
         <div>
-          <button type="submit">Sign In</button>
+          <button type="submit">Log In</button>
         </div>
       </form>
       <p>Don't have an account? <a href="/sign-up">Sign Up</a></p>
