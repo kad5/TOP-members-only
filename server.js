@@ -25,6 +25,7 @@ app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "frontend")));
 
 app.use("/", router);
+app.use((req, res) => res.render("404"));
 app.use(errorHandler);
 
 app.listen(process.env.PORT, () =>

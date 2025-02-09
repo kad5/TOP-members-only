@@ -2,20 +2,20 @@ const controller = require("../controllers/controller");
 const validation = require("../middleware/validations");
 const { Router } = require("express");
 const router = Router();
-const { checkAcess } = require("../middleware/auth");
+const { checkAcess, ensureNotAuth } = require("../middleware/auth");
 
 // public routes
 router.get("/", (req, res) => res.render("overview"));
 
 router
   .route("/sign-up")
-  .get(controller.ensureNotAuth, (req, res) => res.render("sign-up"))
-  .post(controller.ensureNotAuth, validation.signUp, controller.signUp);
+  .get(ensureNotAuth, (req, res) => res.render("sign-up"))
+  .post(ensureNotAuth, validation.signUp, controller.signUp);
 
 router
   .route("/log-in")
-  .get(controller.ensureNotAuth, controller.logInGet)
-  .post(controller.ensureNotAuth, controller.logInPost);
+  .get(ensureNotAuth, controller.logInGet)
+  .post(ensureNotAuth, controller.logInPost);
 
 router.get("/log-out", controller.logOut);
 

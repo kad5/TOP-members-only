@@ -55,4 +55,11 @@ function checkAcess(requiredLevel) {
   };
 }
 
-module.exports = { passport, checkAcess };
+function ensureNotAuth(req, res, next) {
+  if (req.isAuthenticated()) {
+    return res.redirect("/dashboard");
+  }
+  next();
+}
+
+module.exports = { passport, checkAcess, ensureNotAuth };

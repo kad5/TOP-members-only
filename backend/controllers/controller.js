@@ -4,13 +4,6 @@ const passport = require("passport");
 const auth = require("../middleware/auth");
 const bcrypt = require("bcryptjs");
 
-function ensureNotAuth(req, res, next) {
-  if (req.isAuthenticated()) {
-    return res.redirect("/dashboard");
-  }
-  next();
-}
-
 const signUp = asyncHandler(async (req, res) => {
   const { username, password, firstName, lastName } = req.body;
 
@@ -114,7 +107,6 @@ module.exports = {
   signUp,
   logInPost,
   logInGet,
-  ensureNotAuth,
   logOut,
   renderAllmessages,
   addMssage,
