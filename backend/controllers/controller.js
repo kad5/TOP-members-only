@@ -61,9 +61,12 @@ const renderDashboard = asyncHandler(async (req, res) => {
   const { password, ...data } = req.user;
   const notes = await db.findNotesByUserId(data.id).rows;
   const messages = await db.findMessagesByUserId(data.id).rows;
-  const flag = "activity";
+  res.render("dashboard", { data, notes, messages });
+});
+const renderSettings = asyncHandler(async (req, res) => {
+  const { password, ...data } = req.user;
   const mistakes = [];
-  res.render("dashboard", { data, notes, messages, flag, mistakes });
+  res.render("settings", { data, mistakes });
 });
 
 const updateInfo = asyncHandler(async (req, res) => {
@@ -111,6 +114,7 @@ module.exports = {
   renderAllmessages,
   addMssage,
   renderDashboard,
+  renderSettings,
   updateInfo,
   addNote,
   updateNote,

@@ -37,15 +37,7 @@ const update = asyncHandler(async (req, res, next) => {
   if (!errors.isEmpty()) {
     const mistakes = errors.array();
     const { password, ...data } = req.user;
-    const notes = await db.findNotesByUserId(data.id).rows;
-    const messages = await db.findMessagesByUserId(data.id).rows;
-    return res.render("dashboard", {
-      data,
-      notes,
-      messages,
-      flag: "update",
-      mistakes,
-    });
+    return res.render("settings", { data, mistakes });
   }
   next();
 });

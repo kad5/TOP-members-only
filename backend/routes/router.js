@@ -30,6 +30,11 @@ router
   .get(checkAcess(1), controller.renderDashboard)
   .post(checkAcess(1), controller.updateInfo);
 
+router
+  .route("/settings")
+  .get(checkAcess(1), controller.renderSettings)
+  .post(checkAcess(1), controller.updateInfo);
+
 router.post("/notes", checkAcess(1), controller.addNote);
 
 router.get("/top-secret", checkAcess(3), (req, res) =>
