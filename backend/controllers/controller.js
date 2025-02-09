@@ -48,10 +48,12 @@ const logOut = (req, res, next) => {
 
 const renderAllmessages = asyncHandler(async (req, res) => {
   const auth_level = req.user ? req.user.auth_level : 0;
+  const isLoggedIn = req.isAuthenticated();
+
   const { rows } = await db.getAllmessages();
-  if (rows.length < 1) return res.render("messages", { messages: [] });
+
   res.render("messages", {
-    isLoggedIn: req.isAuthenticated(),
+    isLoggedIn,
     messages: rows,
     auth_level,
   });
