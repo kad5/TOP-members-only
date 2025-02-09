@@ -30,18 +30,29 @@
         <p>no messages yet</p>
         <% } else { %> <% messages.forEach(msg => { %>
         <article>
-          <p>@<%= msg.username %></p>
-          <p><%= msg.first_name %></p>
-          <p><%= msg.last_name %></p>
+          <p>@ <%= auth_level > 0 ? msg.username : "anon_user" %></p>
+          <p><%= auth_level > 0 ? msg.first_name : "" %></p>
+          <p><%= auth_level > 0 ? msg.last_name : "" %></p>
           <p><%= msg.message %></p>
-          <p><%= msg.created_at %></p>
+          <p>
+            <%= auth_level > 0 ? new
+            Date(msg.created_at).toLocaleDateString('en-GB', { year: 'numeric',
+            month: 'short', day: 'numeric' }) : "" %>
+          </p>
         </article>
         <% }); %> <% } %>
       </section>
+      <% if (auth_level > 1) { %>
       <form action="/messages" method="post">
         <input name="message" type="text" required />
-        <button type="submit">add message</button>
+        <button type="submit">Add Message</button>
       </form>
+      <% } else { %>
+      <form action="/dashboard" method="get">
+        <p>Only users with level 2 access and above can post messages</p>
+        <button type="submit">Get Access</button>
+      </form>
+      <% } %>
     </div>
   </body>
 </html>
