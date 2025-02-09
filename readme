@@ -1,10 +1,111 @@
-What is this project?
 
--this is a practice project for TOP on using passport js.
--the webiste allows users to register for an account.
--the website also has documentation on the code of this project to keep my notes and learning points
--anyone can view the documentation and a public messaging baord (view only)
--level 1 subscribed users can see who posted but cant post (has dahsboard and has private notes)
--level 2 subscribers can do as 1 and post messages (can post and see names)
--level 3 can do as 2 and also view a secret page (private access)
--admin level can do as 3 and also delete
+        This project relied on passport.js local strategy to provide
+        authentication and authorization. Unfortunately, the available
+        documentation on their website isn't comprehensive. So to spare one or
+        two other people the dread of going through 10-year-old Stack Overflow
+        time wastes, 5-hour long YouTube tutorials, or long chats with AI, this
+        is a brief summary of how local strategy works.
+
+
+        When the app is initialized, passport.js creates a session in the server
+        memory (usually) to store data (session IDs) of valid logged-in users.
+        This data is usually just user IDs, but it can include more. When the
+        session is initiated on the server (in `app.js`), some boilerplate code,
+        which isn’t too important to explain here, is added to manage the
+        session along with a secret key for session access. When a user logs in,
+        passport first calls the local strategy callback function to verify if
+        the user is in the database. Here, you define your database user lookup
+        logic and password verification steps. The `done()` function indicates
+        that the verification is complete (success or failure). The `null`
+        argument in the `done` callback refers to an error. `false` means
+        verification has failed, while `user` means successful verification, and
+        you proceed by adding the user database object (which we defined in the
+        local strategy callback) to the session. Adding the user object to the
+        session is done automatically via the `serializeUser` function, which
+        takes the user ID and serializes it (creates a unique identifier, among
+        other things) into a variable stored in the session. Passport also
+        passes a cookie to the user containing the session ID. The
+        `serializeUser` function is only called when the user logs in.
+
+
+        Now that a user exists in the session, with each request the user makes,
+        the client passes the cookie with the session ID back to passport on the
+        server, which calls the `deserializeUser` function automatically to get
+        the user ID from the session (after making sure the cookie session ID is
+        valid) and looks up the database for the user row/object. Then, passport
+        attaches the user object containing its data to the request (`req`) to
+        be passed around to the other middleware. This way, the user data is
+        available on the backend for handling. For example, protect routes by
+        checking the user's permitted access — if not appropriate, deny the
+        create/read/update/delete (CRUD) requests.
+
+
+        One point I skipped is the `passport.authenticate()` function, which you
+        call on the login route. This I will discuss further later.
+
+
+        Note that the `req.user` object is available on the backend and not the
+        frontend. The `req.user` doesn’t get sent to the client. What’s on the
+        client side is the cookie with the session ID, which is deserialized on
+        each request to fetch and attach the user object. Unless you send the
+        `req.user` yourself, it will not be sent. If you want to pass `req.user`
+        to the client, sending it as a whole is not a good idea because it would
+        typically contain all the user row information, including the hashed
+        password. If sending parts of `req.user` to the client is needed, then
+        extracting it and sending them as variables is the way to go. One
+        approach is to get all data except the password via destructuring syntax
+        with a spread operator like this:
+
+<code>{ password, ...data } = req.user;</code></p>
+
+>Here, we manipulate the data and ignore the password.
+
+
+        Passport also has a `req.isAuthenticated()` function, which is
+        automatically added to each request. This is helpful to easily check if
+        someone is authenticated or not. It helps protect private routes by
+        checking its boolean value at the top of the private route and
+        redirecting if `false`. I think you should have two functions: one to
+        ensure authentication for route protection and another to ensure
+        non-authentication to prevent logged-in users from going to the login
+        and signup pages.
+
+
+        One extra layer of control is to create a function that checks those who
+        are already authenticated for authorization. A custom variable
+        determining their access level (such as `user`) can be checked at the
+        top of the route. For example, if a website sells 3 services separately,
+        you would have one account for the user, which is initially
+        authenticated to allow dashboard access. Then, an authorization function
+        can check if the user has the appropriate permission. You could use one
+        function that checks auth requests against a provided auth variable at
+        the route as an argument. This way, you could limit access to non-paying
+        users or create tiers like admin, moderator, elite user, user,
+        restricted/chat timeout, premium, etc.
+
+
+        The passport local strategy package has a few bugs. Some can be bypassed
+        via other packages like flash messages; others need workarounds. For
+        example, the `passport.authenticate()` function should have a working
+        property, `successReturnToOrRedirect`, that would return the user to the
+        URL they were trying to access before they logged in. It should work,
+        but it doesn't, at least not for me. You need to add this other
+        property, `keepSessionInfo: true`, which isn’t very good when you are
+        keeping all that info. I've looked a lot for a better solution and
+        didn’t find any. If you found one, please add it as a message.
+
+
+        Overall, Passport is easy to use and makes it feel very simple to
+        protect routes. As I’ve mentioned above, the available documentation is
+        not comprehensive, making it a bit hard to grasp at the start.
+        Hopefully, one or two people could benefit from this explanation.
+
+
+        Although Passport Local is simple to use and powerful at what it does,
+        I’m not sure I have enjoyed this project much. Probably the reason is
+        not Passport itself, but because of EJS and the awful page refreshes,
+        which I find very annoying. Working with APIs and separating the
+        frontend and backend seems much easier than EJS for me. I find working
+        with frontend scripts very annoying with EJS. Sending JSON and handling
+        it on the client-side feels much better.
+
