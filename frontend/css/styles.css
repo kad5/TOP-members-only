@@ -267,6 +267,10 @@ nav {
   flex-direction: row;
   gap: 20px;
   align-items: center;
+  a {
+    background-color: rgb(255, 208, 0);
+    font-weight: 800;
+  }
 }
 
 .dashboard > div {
@@ -302,14 +306,20 @@ nav {
 }
 .extra {
   display: grid !important;
-  grid-template: 0fr / 0fr;
+  grid-template-rows: 0fr;
   justify-content: center;
+  transition: 0.15s;
+  overflow: hidden;
   > div {
     overflow: hidden;
     display: flex;
     flex-direction: column;
     gap: 12px;
   }
+}
+
+.open {
+  grid-template-rows: 1fr;
 }
 
 .view {
